@@ -14,13 +14,18 @@ class GroceryApp:
         self.root.title("Grocery Price Comparison App")
         self.root.protocol("WM_DELETE_WINDOW", self.close_window)
 
-        self.app_name = tk.Label(self.root, text="Grocery Price Comparison App", font=('Arial', 18))
+        self.main_page = tk.Frame(self.root)
+
+        self.app_name = tk.Label(self.main_page, text="Grocery Price Comparison App", font=('Arial', 18))
         self.app_name.pack()
 
-        self.instructions = tk.Label(self.root, text="Instructions for this page...", font=('Arial', 12))
+        self.instructions = tk.Label(self.main_page, text="Instructions for this page...", font=('Arial', 12))
         self.instructions.pack()
 
-        self.section_separator = tk.Frame(self.root)
+        #self.spin = ttk.Spinbox(self.root, from_=0, to=10, width=5)
+        #self.spin.pack()
+
+        self.section_separator = tk.Frame(self.main_page)
         self.section_separator.columnconfigure(0, weight=1)
         self.section_separator.columnconfigure(1, weight=1)
 
@@ -50,36 +55,41 @@ class GroceryApp:
 
         self.item_1 = tk.Label(self.item_table, text="Eggs (dozen)", font=('Arial', 14))
         self.item_1.grid(row=1, column=0, padx=20)
-        self.qty_1 = tk.Label(self.item_table, text="2", font=('Arial', 14))
-        self.qty_1.grid(row=1, column=1, padx=20)
+        #self.qty_1 = tk.Label(self.item_table, text="2", font=('Arial', 14))
+        self.qty_1_spin = ttk.Spinbox(self.item_table, from_=0, to=10, width=5, font=('Arial', 10))
+        self.qty_1_spin.grid(row=1, column=1, padx=20)
         self.del_btn_1 = tk.Button(self.item_table, text="delete", font=('Arial', 10))
         self.del_btn_1.grid(row=1, column=2)
 
         self.item_2 = tk.Label(self.item_table, text="Milk (gallons)", font=('Arial', 14))
         self.item_2.grid(row=2, column=0, padx=20)
-        self.qty_2 = tk.Label(self.item_table, text="1", font=('Arial', 14))
-        self.qty_2.grid(row=2, column=1, padx=20)
+        #self.qty_2 = tk.Label(self.item_table, text="1", font=('Arial', 14))
+        self.qty_2_spin = ttk.Spinbox(self.item_table, from_=0, to=10, width=5, font=('Arial', 10))
+        self.qty_2_spin.grid(row=2, column=1, padx=20)
         self.del_btn_2 = tk.Button(self.item_table, text="delete", font=('Arial', 10))
         self.del_btn_2.grid(row=2, column=2)
 
         self.item_3 = tk.Label(self.item_table, text="Apples", font=('Arial', 14))
         self.item_3.grid(row=3, column=0, padx=20)
-        self.qty_3 = tk.Label(self.item_table, text="5", font=('Arial', 14))
-        self.qty_3.grid(row=3, column=1, padx=20)
+        #self.qty_3 = tk.Label(self.item_table, text="5", font=('Arial', 14))
+        self.qty_3_spin = ttk.Spinbox(self.item_table, from_=0, to=10, width=5, font=('Arial', 10))
+        self.qty_3_spin.grid(row=3, column=1, padx=20)
         self.del_btn_3 = tk.Button(self.item_table, text="delete", font=('Arial', 10))
         self.del_btn_3.grid(row=3, column=2)
 
         self.item_4 = tk.Label(self.item_table, text="Cherries (lbs)", font=('Arial', 14))
         self.item_4.grid(row=4, column=0, padx=20)
-        self.qty_4 = tk.Label(self.item_table, text="0.5", font=('Arial', 14))
-        self.qty_4.grid(row=4, column=1, padx=20)
+        #self.qty_4 = tk.Label(self.item_table, text="0.5", font=('Arial', 14))
+        self.qty_4_spin = ttk.Spinbox(self.item_table, from_=0, to=10, width=5, font=('Arial', 10))
+        self.qty_4_spin.grid(row=4, column=1, padx=20)
         self.del_btn_4 = tk.Button(self.item_table, text="delete", font=('Arial', 10))
         self.del_btn_4.grid(row=4, column=2)
 
         self.item_5 = tk.Label(self.item_table, text="Rice (lbs)", font=('Arial', 14))
         self.item_5.grid(row=5, column=0, padx=20)
-        self.qty_5 = tk.Label(self.item_table, text="4", font=('Arial', 14))
-        self.qty_5.grid(row=5, column=1, padx=20)
+        #self.qty_5 = tk.Label(self.item_table, text="4", font=('Arial', 14))
+        self.qty_5_spin = ttk.Spinbox(self.item_table, from_=0, to=10, width=5, font=('Arial', 10))
+        self.qty_5_spin.grid(row=5, column=1, padx=20)
         self.del_btn_5 = tk.Button(self.item_table, text="delete", font=('Arial', 10))
         self.del_btn_5.grid(row=5, column=2)
 
@@ -126,8 +136,10 @@ class GroceryApp:
 
         self.section_separator.pack(pady=20)
 
-        self.compare_btn = tk.Button(self.root, text="Compare List", font=("Arial", 16), command=self.compare)
+        self.compare_btn = tk.Button(self.main_page, text="Compare List", font=("Arial", 16), command=self.compare)
         self.compare_btn.pack(pady=5)
+
+        self.main_page.pack()
 
         self.root.mainloop()
 
@@ -145,18 +157,37 @@ class GroceryApp:
     def compare(self):
         #print("need help choosing stores")
         if messagebox.askyesno(title="Compare Prices?", message="Is your grocery list complete?"):
-            self.root.destroy()
-            self.root2 = tk.Tk()
-            self.root2.geometry("800x500")
-            self.root2.title("Grocery Price Comparison App")
-            new_page = tk.Label(self.root2, text="Welcome to a New Page!", font=('Arial', 18))
-            new_page.pack()
+            self.main_page.forget()
+            self.results_page = tk.Frame(self.root)
+            #self.root2.geometry("800x500")
+            #self.root2.title("Grocery Price Comparison App")
+            results = tk.Label(self.results_page, text="Price Comparison Results", font=('Arial', 18))
+            results.pack(pady=20)
+
+            best_store = tk.Label(self.results_page, text="Cheapest Store: Bob's Emporium", font=('Arial', 16))
+            best_store.pack(pady=15)
+
+            total_price = tk.Label(self.results_page, text="Your total price: $56.12", font=('Arial', 16))
+            total_price.pack(pady=10)
+
+            savings = tk.Label(self.results_page, text="Your savings: $3.09", font=('Arial', 16))
+            savings.pack(pady=10)
+
+            back_btn = tk.Button(self.results_page, text="Back to Shopping List", font=('Arial', 16), command=self.back_to_start)
+            back_btn.pack(pady=20)
+            self.results_page.pack()
         #messagebox.showinfo(title="Compare Prices?",
         #                    message="Is your grocery list complete?")
 
     def close_window(self):
         if messagebox.askyesno(title="Exit Program?", message="Do you really want to exit the program?"):
             self.root.destroy()
+
+
+    def back_to_start(self):
+        if messagebox.askyesno(title="Go Back?", message="Do you want to return to your shopping list?"):
+            self.results_page.forget()
+            self.main_page.pack()
 
 
 
