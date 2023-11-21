@@ -1,6 +1,6 @@
 # cs_361_final_project
-# city to zip code search microservice
-# samuel smith
+City to Zip Code Search Microservice
+Samuel Smith
 
 Description:
 This microservice provides a search function to find valid zip codes based on a city query. The microservice will return all valid zip codes for any city that matches the search term, but will specify which city/state each zip code is matched to.
